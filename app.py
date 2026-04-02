@@ -6,6 +6,11 @@ from datetime import datetime
 from dotenv import load_dotenv
 load_dotenv()
 
+# Fix Railway's PostgreSQL URL for SQLAlchemy compatibility
+database_url = os.environ.get('DATABASE_URL', 'sqlite:///budget.db')
+if database_url.startswith('postgres://'):
+    database_url = database_url.replace('postgres://', 'postgresql://', 1)
+
 app = Flask(__name__)
 
 # Read SECRET_KEY from environment — never hardcode this
