@@ -179,7 +179,7 @@
         <div class="col-lg-4">
           <div class="card p-4 mb-3">
             <h4 class="mb-2 text-start balance-title">Current Balance</h4>
-            <div class="balance">Shs.{{ '%.2f'|format(balance) }}</div>
+            <div class="balance">Shs.{{ balance }}</div>
             <div class="balance-sub">(Income − Expenses)</div>
           </div>
 
@@ -246,9 +246,9 @@
 
                     <td class="text-end">
                       {% if tx.type == 'Income' %}
-                        <span class="amount-positive">+Shs{{ '%.2f'|format(tx.amount) }}</span>
+                        <span class="amount-positive">+Shs{{ tx.amount }}</span>
                       {% else %}
-                        <span class="amount-negative">-Shs{{ '%.2f'|format(tx.amount) }}</span>
+                        <span class="amount-negative">-Shs{{ tx.amount }}</span>
                       {% endif %}
                     </td>
 
