@@ -3,12 +3,18 @@ import os
 from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+from dotenv import load_dotenv
+load_dotenv()
 
 app = Flask(__name__)
+
+# Read SECRET_KEY from environment — never hardcode this
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'dev-only-fallback-key')
 
 # Database Configuration
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///budget.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
 db = SQLAlchemy(app)
 
 # Database Model
