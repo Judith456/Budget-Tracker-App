@@ -179,7 +179,7 @@
         <div class="col-lg-4">
           <div class="card p-4 mb-3">
             <h4 class="mb-2 text-start balance-title">Current Balance</h4>
-            <div class="balance">Shs.{{ balance }}</div>
+            <div class="balance">Shs.{{ "%.0f"|format(balance) }}</div>
             <div class="balance-sub">(Income − Expenses)</div>
           </div>
 
@@ -246,14 +246,22 @@
 
                     <td class="text-end">
                       {% if tx.type == 'Income' %}
-                        <span class="amount-positive">+Shs{{ tx.amount }}</span>
+                        <span class="amount-positive">+Shs{{ "%.0f"|format(tx.amount) }}</span>
                       {% else %}
-                        <span class="amount-negative">-Shs{{ tx.amount }}</span>
+                        <span class="amount-negative">-Shs{{ "%.0f"|format(tx.amount) }}</span>
                       {% endif %}
                     </td>
 
                     <td class="text-end">
-                      <form method="POST" action="/delete/{{ tx.id }}" style="display:inline;">
+                      <form method="GET" action="/edit/{{ tx.id }}" style="display:inline;">
+                        <button
+                          type="submit"
+                          class="btn btn-sm btn-secondary"
+                        >
+                          Edit
+                        </button>
+                      </form>
+                      <form method="POST" action="/delete/{{ tx.id }}" style="display:inline; margin-left: 6px;">
                         <button
                           type="submit"
                           class="btn btn-sm btn-danger-soft"

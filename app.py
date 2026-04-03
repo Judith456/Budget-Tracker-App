@@ -65,6 +65,22 @@ def delete_transaction(id):
     return redirect(url_for('index'))
 
 
+@app.route('/edit/<int:id>', methods=['GET'])
+def edit_transaction(id):
+    transaction = Transaction.query.get_or_404(id)
+    return render_template('edit.html', transaction=transaction)
+
+
+@app.route('/edit/<int:id>', methods=['POST'])
+def update_transaction(id):
+    transaction = Transaction.query.get_or_404(id)
+    transaction.item = request.form.get('item')
+    transaction.amount = float(request.form.get('amount'))
+    transaction.type = request.form.get('type')
+    db.session.commit()
+    return redirect(url_for('index'))
+
+
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port, debug=False)

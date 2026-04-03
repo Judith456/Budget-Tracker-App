@@ -39,3 +39,17 @@ def test_delete_transaction(client):
     }, follow_redirects=True)
     response = client.post('/delete/1', follow_redirects=True)
     assert response.status_code == 200
+    
+def test_edit_transaction(client):
+    """Editing a transaction should update it and redirect home"""
+    client.post('/add', data={
+        'item': 'Old item',
+        'amount': '1000',
+        'type': 'Expense'
+    }, follow_redirects=True)
+    response = client.post('/edit/1', data={
+        'item': 'Updated item',
+        'amount': '2000',
+        'type': 'Income'
+    }, follow_redirects=True)
+    assert response.status_code == 200
